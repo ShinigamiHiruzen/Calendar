@@ -8,15 +8,15 @@ import exceptions.ErrorDataException;
 
 import java.util.ArrayList;
 
-public class Agendador {
+public class AgendadorData {
     
     private List <Data> datasAulas;
 
-    public Agendador(){
+    public AgendadorData(){
         datasAulas = new ArrayList<>();
     }
     
-    public void agendarDataAulas(Data data) throws ErrorAgendadorException{
+    public void agendarDataAula(Data data) throws ErrorAgendadorException{
         if (datasAulas.size() < 10) {
             datasAulas.add(data);
         }else{
@@ -24,10 +24,9 @@ public class Agendador {
         }
     }
 
-    public String consultarDataAula(int diaAula) throws ErrorAgendadorException{
-       
+    public String consultarDataAula(int diaAula, Data dataFormatada) throws ErrorAgendadorException{
         if (diaAula >= 0 && diaAula < datasAulas.size()) {
-            Data dataFormatada = datasAulas.get(diaAula);
+            dataFormatada = datasAulas.get(diaAula);
             if (dataFormatada != null) {
                 return dataFormatada.dataFormatada();
             } else {
@@ -38,9 +37,9 @@ public class Agendador {
         }
     }
 
-    public int consultarDataAula(int diaAula, int escolha) throws ErrorAgendadorException{
+    public int consultarDataAula(int diaAula, int escolha, Data dataFormatada) throws ErrorAgendadorException{
         if (diaAula >= 0 && diaAula < datasAulas.size() && escolha >= 1 && escolha <= 3){
-            Data dataFormatada = datasAulas.get(diaAula);
+            dataFormatada = datasAulas.get(diaAula);
             if (dataFormatada != null) {
                 if (escolha == 1){
                     return dataFormatada.getDia();
@@ -56,11 +55,10 @@ public class Agendador {
         return 1;
     }
 
-    public void adiarDataAula(int diaAula, int quantidadeDias) throws ErrorDataException{
-
+    public void adiarDataAula(int diaAula, int quantidadeDias, Data obterDataAula) throws ErrorDataException{
         if (diaAula >= 0 && diaAula < datasAulas.size()) {
 
-            Data obterDataAula = datasAulas.get(diaAula);
+            obterDataAula = datasAulas.get(diaAula);
             obterDataAula.avancarDias(quantidadeDias);
 
             datasAulas.set(diaAula, obterDataAula);
@@ -69,11 +67,11 @@ public class Agendador {
         }
     }
 
-    public void alterarDataAula(int diaAula, int dia, int mes, int ano) throws ErrorDataException {
+    public void alterarDataAula(int diaAula, int dia, int mes, int ano, Data obterDataAula) throws ErrorDataException {
 
         if (diaAula >= 0 && diaAula < datasAulas.size()){
 
-            Data obterDataAula = datasAulas.get(diaAula);
+            obterDataAula = datasAulas.get(diaAula);
             obterDataAula.alterarData(dia, mes, ano);
         }else {
             throw new ErrorDataException("Data de aula inválida ou inexistente!");
