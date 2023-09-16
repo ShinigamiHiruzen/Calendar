@@ -24,14 +24,15 @@ public class DataHora extends Data{
         return (hora >= 0 && hora <= 23 && minuto >= 0 && minuto <= 59 && segundo >= 0 && segundo <= 59);
     }
 
-    public boolean alterarDataHora(int dia, int mes, int ano, int hora, int minuto, int segundo) throws ErrorDataException {
+    public void alterarDataHora(int dia, int mes, int ano, int hora, int minuto, int segundo) throws ErrorDataException {
         if (super.validarData(dia, mes, ano) && validarDataHora(hora, minuto, segundo)){
             super.alterarData(dia, mes, ano);
             this.hora = hora;
             this.minuto = minuto;
             this.segundo = segundo;
+        }else{
+            throw new RuntimeException("Data Inválida!");
         }
-        return true;
     }
 
     //GETTERS
